@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<EASY>
+   <node vida="5" cEnemigo="1" vEnemigo="1" iEnemigo="1" />
+</EASY>
+
+<MEDIUM>
+   <node vida="3" cEnemigo="2" vEnemigo="2" iEnemigo="2" />
+</MEDIUM>
+
+<HARD>
+   <node vida="1" cEnemigo="3" vEnemigo="3" iEnemigo="4" />
+</HARD>
