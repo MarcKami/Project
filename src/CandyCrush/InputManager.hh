@@ -72,8 +72,8 @@ public:
 				case SDL_MOUSEWHEEL:		m_mouseWheel = evnt.wheel.y; // Store the movement direction of the wheel when it is used
 				case SDL_MOUSEBUTTONDOWN:	m_inputValues.push(&(m_inputMap[evnt.button.button] = InputValue::DOWN)); break; // Push the event mouse down to the queue of processes
 				case SDL_MOUSEBUTTONUP:		m_inputValues.push(&(m_inputMap[evnt.button.button] = InputValue::UP)); break; // Push the event mouse up to the queue of processes
-				case SDL_KEYDOWN:			m_inputValues.push(&(m_inputMap[evnt.key.keysym.sym] = (evnt.key.repeat) ? InputValue::HOLD : InputValue::DOWN)); break; // Push the event key down to the queue of processes
-				case SDL_KEYUP:				m_inputValues.push(&(m_inputMap[evnt.key.keysym.sym] = InputValue::UP)); break; // Push the event key up to the queue of processes
+				case SDL_KEYDOWN:			m_inputValues.push(&(m_inputMap[evnt.key.keysym.sym] = (evnt.key.repeat) ? InputValue::HOLD : InputValue::DOWN)); keyCode = SDL_GetKeyName(evnt.key.keysym.sym); keyPressed = true; break; // Push the event key down to the queue of processes
+				case SDL_KEYUP:				m_inputValues.push(&(m_inputMap[evnt.key.keysym.sym] = InputValue::UP)); keyPressed = false; break; // Push the event key up to the queue of processes
 			}
 		}
 	}
@@ -84,6 +84,16 @@ public:
 	inline bool HasQuit(void) const { 
 		return m_exit; 
 	};
+	/**
+	* Get the mouse coordinates.
+	* @return A MouseCoords structure that stores an x and y value.
+	*/
+	
+	inline const char* GetKey(void) const {
+		if (keyPressed) return keyCode;
+		else return "!";
+	};
+	
 	/**
 	 * Get the mouse coordinates.
 	 * @return A MouseCoords structure that stores an x and y value.
@@ -197,6 +207,8 @@ private:
 	std::unordered_map<Sint32, InputValue> m_inputMap;		//!< Dictionary that stores elements with a key as a character and a value as an state.
 	std::queue<InputValue*> m_inputValues;					//!< Queue that only stores the events added at the same time to be processed.
 	MouseCoords m_mouseCoords;								//!< Mouse coordinates main instance where mouse input info is stored.
+	const char* keyCode = "A";								//!< Key Code input info is stored.
+	bool keyPressed = false;
 	Sint32 m_mouseWheel{ 0 };								//!< Mouse wheel info which is stored for vertical movement.
 	bool m_exit = false;									//!< Trigger condition that sets to true when the user clicks the cross window button.
 };

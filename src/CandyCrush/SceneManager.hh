@@ -24,17 +24,19 @@ public:
 		static_assert(std::is_base_of<Scene, S>::value, "Can't add scene that doesn't inherit from IScene");
 		m_scenes.emplace(typeid(S), new S);
 	}
-	template<class S> void SetCurScene(int dif_, int v, int e, int i) {
+	template<class S> void SetCurScene(LevelData dat, PlayerData p_dat) {
 		static_assert(std::is_base_of<Scene, S>::value, "Can't add scene that doesn't inherit from IScene");
 		if (m_curScene != nullptr)
 			m_curScene->OnExit(),
 			m_curScene->SetState<SceneState::SLEEP>();
 		ASSERT((m_curScene = GetScene<S>()) != nullptr);
 		m_curScene->SetState<SceneState::RUNNING>();
-		m_curScene->dif = dif_;
-		m_curScene->vEn = v;
-		m_curScene->cEn = e;
-		m_curScene->iEn = i;
+		m_curScene->data.life = dat.life;
+		m_curScene->data.vEn = dat.vEn;
+		m_curScene->data.cEn = dat.cEn;
+		m_curScene->data.iEn = dat.iEn;
+		m_curScene->p_data.name = p_dat.name;
+		m_curScene->p_data.m_score = p_dat.m_score;
 		m_curScene->OnEntry();
 	}
 	inline Scene *&GetCurScene(void) { return m_curScene; }

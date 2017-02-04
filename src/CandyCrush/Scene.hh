@@ -18,7 +18,8 @@ enum class SceneState {
 class Scene {
 	friend class SceneManager;
 public:
-	int dif, vEn, cEn, iEn;
+	LevelData data;
+	PlayerData p_data;
 	explicit Scene() = default;
 	virtual ~Scene() = default;
 	// Called when entering into a new scene
@@ -33,6 +34,8 @@ public:
 	template <SceneState state> inline void SetState(void) { currentState = state; };
 	inline SceneState GetState(void) const { return currentState; };
 	template <SceneState state> inline bool CheckState(void) const { return currentState == state; };
+	LevelData menu = { 0,0,0,0 }, rank = {0,0,0,0};
+	PlayerData p_default = {"   ", 0};
 protected:
 	SceneState currentState{ SceneState::NONE }; // Current state of the scene, NONE by default
 };

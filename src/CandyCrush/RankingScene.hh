@@ -14,8 +14,8 @@ public:
 	void Draw(void) override;
 private:
 	Sprite m_background;
-	int dif;
-	int m_score{ 0 };
-	std::map<std::string, int> lvlInfo;
-
+	std::multimap<int, char*> rankInfo;
+	std::multimap<int, char*>::iterator it;
+	int pos;
+	float yPos;
 };

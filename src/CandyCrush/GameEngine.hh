@@ -36,10 +36,12 @@ namespace GameEngine {
 	}
 	//! Adds the game scenes into the Scene Manager and decides which is the first screen
 	void AddScenes(void) {
+		LevelData menu = { 0,0,0,0 };
+		PlayerData p_default = { "   ", 0 };
 		SM.AddScene<MenuScene>();//Cambiar  GameScene por MenuScene
 		SM.AddScene<GameScene>();
 		SM.AddScene<RankingScene>();
-		SM.SetCurScene<MenuScene>(0,0,0,0);
+		SM.SetCurScene<MenuScene>(menu, p_default);
 	}
 	/** 
 	 * Runs the game specifying the window's name and dimensions

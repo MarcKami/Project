@@ -22,6 +22,7 @@
     <ClCompile Include="GameObjects.cc" />
     <ClCompile Include="GameScene.cc" />
     <ClCompile Include="Grid.cc" />
+    <ClCompile Include="IOManager.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="MenuScene.cc" />
     <ClCompile Include="RankingScene.cc" />

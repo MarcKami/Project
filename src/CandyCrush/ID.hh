@@ -18,3 +18,12 @@ enum class FontID : int {
 	TITTLE,
 	MAX 
 };
+
+struct LevelData {
+	int life, cEn, vEn, iEn;
+};
+
+struct PlayerData {
+	char* name;
+	int m_score;
+};

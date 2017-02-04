@@ -3,6 +3,8 @@
 #include "Scene.hh"
 #include <map>
 
+
+
 // GameScene class with the main gameplay mode
 class MenuScene : public Scene {
 public:
@@ -14,8 +16,7 @@ public:
 	void Draw(void) override;
 private:
 	Sprite m_background;
-	int dif;
+	std::multimap<int, char*> rankInfo;
 	int m_score{ 0 };
-	std::map<std::string, int> lvlInfo;
-	
+	std::vector<LevelData> lvlInfo;
 };

@@ -3,26 +3,6 @@
 #include "Logger.hh"
 #include <math.h>
 
-/*
-std::vector<Transform> positions = {
-	{ int(W.GetWidth()*.1f),int(W.GetHeight()*.1f) },
-	{ int(W.GetWidth()*.9f),int(W.GetHeight()*.9f) },
-	{ int(W.GetWidth()*.1f),int(W.GetHeight()*.9f) },
-	{ int(W.GetWidth()*.9f),int(W.GetHeight()*.1f) },
-	{ int(W.GetWidth()*.1f),int(W.GetHeight()*.5f) },
-	{ int(W.GetWidth()*.9f),int(W.GetHeight()*.5f) },
-	{ int(W.GetWidth()*.5f),int(W.GetHeight()*.9f) },
-	{ int(W.GetWidth()*.5f),int(W.GetHeight()*.1f) },
-	{ int(W.GetWidth()*.1f),int(W.GetHeight()*.25f) },
-	{ int(W.GetWidth()*.1f),int(W.GetHeight()*.75f) },
-	{ int(W.GetWidth()*.25f),int(W.GetHeight()*.1f) },
-	{ int(W.GetWidth()*.75f),int(W.GetHeight()*.1f) },
-	{ int(W.GetWidth()*.9f),int(W.GetHeight()*.25f) },
-	{ int(W.GetWidth()*.9f),int(W.GetHeight()*.75f) },
-	{ int(W.GetWidth()*.25f),int(W.GetHeight()*.9f) },
-	{ int(W.GetWidth()*.75f),int(W.GetHeight()*.9f) },
-}*/
-
 
 Player::Player(int k) : life(k) {
 	s_player.transform = { int(W.GetWidth() *.5f),int(W.GetHeight() *.5f), 50, 50 };
@@ -78,18 +58,10 @@ void Player::HandleInput() {
 
 
 void Player::checkLimits() {
-	if (s_player.transform.x <= 0) { 
-		s_player.transform.x = int(W.GetWidth()-1);
-	}
-	if (s_player.transform.x >= int(W.GetWidth())) {
-		s_player.transform.x = 1;
-	}
-	if (s_player.transform.y <= 0) {
-		s_player.transform.y = int(W.GetHeight()-1); 
-	}
-	if (s_player.transform.y >= int(W.GetHeight())) { 
-		s_player.transform.y = 1;
-	}
+	if (s_player.transform.x <= 0) s_player.transform.x = int(W.GetWidth()-1);
+	if (s_player.transform.x >= int(W.GetWidth())) s_player.transform.x = 1;
+	if (s_player.transform.y <= 0) s_player.transform.y = int(W.GetHeight()-1);
+	if (s_player.transform.y >= int(W.GetHeight()))s_player.transform.y = 1;
 }
 
 void Player::Movement() {
@@ -260,69 +232,45 @@ void Enemy::Attack() {
 };
 
 void Enemy::checkLimits() {
-	if (s_enemy.transform.x <= 0) {
-		s_enemy.transform.x = int(W.GetWidth() - 1);
-	}
-	if (s_enemy.transform.x >= int(W.GetWidth())) {
-		s_enemy.transform.x = 1;
-	}
-	if (s_enemy.transform.y <= 0) {
-		s_enemy.transform.y = int(W.GetHeight() - 1);
-	}
-	if (s_enemy.transform.y >= int(W.GetHeight())) {
-		s_enemy.transform.y = 1;
-	}
+	if (s_enemy.transform.x <= 0) s_enemy.transform.x = int(W.GetWidth() - 1);
+	if (s_enemy.transform.x >= int(W.GetWidth())) s_enemy.transform.x = 1;
+	if (s_enemy.transform.y <= 0) s_enemy.transform.y = int(W.GetHeight() - 1);
+	if (s_enemy.transform.y >= int(W.GetHeight())) s_enemy.transform.y = 1;
 }
 
 void Enemy::Collision(std::list<Bullet> bullet) {
-
-	for each (Bullet b in bullet)
-	{
+	for each (Bullet b in bullet){
 		int dx = s_enemy.transform.x - b.s_bullet.transform.x;
 		int dy = s_enemy.transform.y - b.s_bullet.transform.y;
 		int distance = sqrt(dx * dx + dy * dy);
 		if (distance < r + b.r) { //Collision detected
-			b.kill = true;
 			kill = true;
 		}
 	}
 };
 
 void Enemy::ChangeSpeed(int score) {
-	if (score >= 10000) {
-		mod = 0.1f;
-	}
-	else if (score >= 50000) {
-		mod = 0.2f; 
-	}
-	else if (score >= 100000) {
-		mod = 0.3f; 
-	}
-	else if (score >= 200000) {
-		mod = 0.4f; 
-	}
-	else if (score >= 500000) {
-		mod = 0.f; 
-	}
+	if (score >= 10000) mod = 0.1f;
+	else if (score >= 50000) mod = 0.2f;
+	else if (score >= 100000) mod = 0.3f;
+	else if (score >= 200000) mod = 0.4f; 
+	else if (score >= 500000) mod = 0.5f; 
 }
 
 void Enemy::Update() {
 	Movement();
 	if (id == ObjectID::UFO_L || id == ObjectID::UFO_S) Attack();
-
 }
 
 void Enemy::Draw() { s_enemy.Draw(); }; 
 
 
 
-Bullet::Bullet(Aim p_aim) : m_aim(p_aim)
-{
+Bullet::Bullet(Aim p_aim) : m_aim(p_aim){
 	s_bullet.objectID = ObjectID::BULLET;
 	s_bullet.transform = { m_aim.xPos, m_aim.yPos, 5, 5 };
 	dirX = m_aim.aimX - s_bullet.transform.x;
 	dirY = m_aim.aimY - s_bullet.transform.y;
-
 }
 
 void Bullet::Draw() { s_bullet.Draw(); };

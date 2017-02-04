@@ -26,5 +26,6 @@ private:
 	std::list<Enemy> v_enemies;
 	std::list<Bullet> p_bullets;
 	std::list<Bullet> e_bullets;
-	int m_score{ 0 };
+	int stage, namePos;
+	char name[3];
 };

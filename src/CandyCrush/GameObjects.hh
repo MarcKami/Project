@@ -60,11 +60,11 @@ class Player
 {
 public:
 	Player(int k);
-	int life, r = 25; //setRadius(ObjectID::PLAYER);
+	int life, r = 25;
 	double v = 0.f, xDir, yDir;
 	Aim p_aim;
 	Sprite s_player;
-	float delay = 0.33f, counter = 0.f, inmune = 1.f, i_count = 0.f;
+	float delay = 0.2f, counter = 0.f, inmune = 1.f, i_count = 0.f;
 	bool shooting = false, damaged = false;
 	double pi = 3.14159265358979323846;
 	void Update(); 
